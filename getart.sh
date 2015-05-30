@@ -1,7 +1,7 @@
 rm *.jpg *.png
 rm aa.*
 wget -U 'SomeUserAgent/1.0' -O- 'http://backend.deviantart.com/rss.xml?q=special:dd' 2> /dev/null |
-grep -Po 'http://[^.]+\.deviantart.com/art/[^"]+-\d+' |
+grep -oP "(?<=<media:content)[^<]+" |sed s/'url="'//g |cut -d " " -f2 |sed s/'"'//g|
 sed -r 's/.+-([0-9]+)/http:\/\/www.deviantart.com\/download\/\1\/aa/' |
 wget -U 'SomeUserAgent/1.0' -i-
 FILES=~/deviant/*
